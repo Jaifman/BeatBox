@@ -7,9 +7,12 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
@@ -107,6 +110,11 @@ public class BeatBox {
 		JButton guardar = new JButton("Guardar");
 		guardar.addActionListener(new MySendListener());
 		botonCaja.add(guardar);
+		
+		//Creamos y añadimos botón de Cargar a la caja y lo ponemos a la escucha
+		JButton cargar = new JButton("Cargar");
+		//cargar.addActionListener(new MyReadInListener());
+		botonCaja.add(cargar);
 		
 		//Creamos caja y le añadimos etiquetas con los nombres de los instrumentos
 		Box cajasNombres = new Box(BoxLayout.Y_AXIS);
@@ -309,6 +317,45 @@ public class BeatBox {
 		}
 		
 	}
+	/*
+	public class MyReadInListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent a) {
+			
+			boolean [] estadoCheckBox = null;
+			
+			try {
+
+				FileInputStream fileIn = new FileInputStream(new File("Checkbox.ser"));
+				ObjectInputStream is = new ObjectInputStream(fileIn);
+				estadoCheckBox = (boolean[]) is.readObject();
+				is.close();
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			}
+			
+			for (int i = 0; i < 256; i++) {
+				
+				JCheckBox check = (JCheckBox) listaCheckBox.get(i);
+				
+				if(estadoCheckBox[i]){
+					
+					check.setSelected(true);
+					
+				}else{
+					
+					check.setSelected(false);
+					
+				}
+			}
+			secuenciador.stop();
+			componerPista();
+		}
+		
+	}*/
 	
 	//Construye eventos para cada uno de los 16 instrumentos
 	public void construyePistas(int[]lista){
