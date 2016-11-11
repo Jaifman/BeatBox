@@ -4,6 +4,9 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 //Importación de paquetes necesarios
 import java.util.ArrayList;
 
@@ -99,6 +102,11 @@ public class BeatBox {
 		JButton menosTempo = new JButton("-Tempo");
 		menosTempo.addActionListener(new MyDownTempoListener());
 		botonCaja.add(menosTempo);
+		
+		////Creamos y añadimos botón de Guardar a la caja y lo ponemos a la escucha
+		JButton guardar = new JButton("Guardar");
+		guardar.addActionListener(new MySendListener());
+		botonCaja.add(guardar);
 		
 		//Creamos caja y le añadimos etiquetas con los nombres de los instrumentos
 		Box cajasNombres = new Box(BoxLayout.Y_AXIS);
@@ -269,6 +277,37 @@ public class BeatBox {
 			secuenciador.setTempoFactor((float)(tempoFactor*.97));
 			
 		}		
+		
+	}
+	
+	public class MySendListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent a) {
+			
+			boolean [] estadoCheckBox = new boolean[256];
+			
+			for (int i = 0; i < 256; i++) {
+				
+				JCheckBox check = (JCheckBox) listaCheckBox.get(i);
+				
+				if(check.isSelected()){
+					
+					estadoCheckBox[i] = true;
+					
+				}
+				
+			}
+			try {
+				
+				FileOutputStream fileStream = new FileOutputStream(new File("Checkbox.ser"));
+				ObjectOutputStream os = new ObjectOutputStream(fileStream);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			}
+		}
 		
 	}
 	
