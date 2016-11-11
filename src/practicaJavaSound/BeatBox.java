@@ -4,7 +4,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//Importación de paquetes necesarios
+//ImportaciÃ³n de paquetes necesarios
 import java.util.ArrayList;
 
 import javax.sound.midi.MidiEvent;
@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 
 public class BeatBox {
 	
-	//Declaración de variables sin inicializar
+	//DeclaraciÃ³n de variables sin inicializar
 	JPanel laminaPrincipal;
 	ArrayList<JCheckBox> listaCheckBox;
 	Sequencer secuenciador;
@@ -31,7 +31,7 @@ public class BeatBox {
 	Track pista;
 	JFrame miMarco;
 	
-	//Declaración de array iniicalizado con los nombres de los instrumentos
+	//DeclaraciÃ³n de array iniicalizado con los nombres de los instrumentos
 	String[] nombreInstrumentos = {
 			
 			"Bass Drum",
@@ -53,24 +53,24 @@ public class BeatBox {
 			
 	};
 	
-	//Cada número del array es una nota distinta
+	//Cada nÃºmero del array es una nota distinta
 	int[] instrumentos = {35,42,46,38,49,39,50,60,70,72,64,56,58,47,67,63};
 	
-	//Método main que creará la instancia de la clase con llamada al constructor de la GUI
+	//MÃ©todo main que crearÃ¡ la instancia de la clase con llamada al constructor de la GUI
 	public static void main(String[] args) {
 		
 		new BeatBox().construyeInterface();
 		
 	}
 	
-	//Método Constructor de la GUI
+	//MÃ©todo Constructor de la GUI
 	public void construyeInterface(){
 		
 		//Creamos el Marco y su modo de cierre
 		miMarco = new JFrame("Cyber BeatBox");
 		miMarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//Creamos la lamina para el fondo y le ponemos un borde vacío por estética
+		//Creamos la lamina para el fondo y le ponemos un borde vacÃ­o por estÃ©tica
 		JPanel laminaFondo = new JPanel(new BorderLayout());
 		laminaFondo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
@@ -80,27 +80,27 @@ public class BeatBox {
 		//Creamos una caja para botones Play/Stop/Tempo
 		Box botonCaja = new Box(BoxLayout.Y_AXIS);
 		
-		//Creamos y añadimos botón de Play a la caja y lo ponemos a la escucha
+		//Creamos y aÃ±adimos botÃ³n de Play a la caja y lo ponemos a la escucha
 		JButton play = new JButton("Play");
 		play.addActionListener(new MyPlayListener());
 		botonCaja.add(play);
 		
-		//Creamos y añadimos botón de Stop a la caja y lo ponemos a la escucha
+		//Creamos y aÃ±adimos botÃ³n de Stop a la caja y lo ponemos a la escucha
 		JButton stop = new JButton("Stop");
 		stop.addActionListener(new MyStopListener());
 		botonCaja.add(stop);
 		
-		//Creamos y añadimos botón de +Tempo a la caja y lo ponemos a la escucha
+		//Creamos y aÃ±adimos botÃ³n de +Tempo a la caja y lo ponemos a la escucha
 		JButton masTempo = new JButton("+Tempo");
 		masTempo.addActionListener(new MyUpTempoListener());
 		botonCaja.add(masTempo);
 		
-		//Creamos y añadimos botón de +Tempo a la caja y lo ponemos a la escucha
+		//Creamos y aÃ±adimos botÃ³n de +Tempo a la caja y lo ponemos a la escucha
 		JButton menosTempo = new JButton("-Tempo");
 		menosTempo.addActionListener(new MyDownTempoListener());
 		botonCaja.add(menosTempo);
 		
-		//Creamos caja y le añadimos etiquetas con los nombres de los instrumentos
+		//Creamos caja y le aÃ±adimos etiquetas con los nombres de los instrumentos
 		Box cajasNombres = new Box(BoxLayout.Y_AXIS);
 		for (int i = 0; i < instrumentos.length; i++) {
 			
@@ -108,11 +108,11 @@ public class BeatBox {
 			
 		}
 		
-		//Añadimos las cajas a la lámina de fondo y las situamos
+		//AÃ±adimos las cajas a la lÃ¡mina de fondo y las situamos
 		laminaFondo.add(BorderLayout.EAST,botonCaja);
 		laminaFondo.add(BorderLayout.WEST,cajasNombres);
 		
-		//Añadimos la lamina de fondo al marco
+		//AÃ±adimos la lamina de fondo al marco
 		miMarco.getContentPane().add(laminaFondo);
 		
 		//Creamos una disposicion en cuadricula para los checkboxes
@@ -120,11 +120,11 @@ public class BeatBox {
 		cuadricula.setVgap(1);
 		cuadricula.setHgap(2);
 		
-		//Creamos la lámina principal que contendrá a la cuadricula y la añadimos a la lámina de fondo
+		//Creamos la lÃ¡mina principal que contendrÃ¡ a la cuadricula y la aÃ±adimos a la lÃ¡mina de fondo
 		laminaPrincipal = new JPanel(cuadricula);
 		laminaFondo.add(BorderLayout.CENTER,laminaPrincipal);
 		
-		//Creamos los 256 CheckBox y los añadimos al ArrayList y a la lámina
+		//Creamos los 256 CheckBox y los aÃ±adimos al ArrayList y a la lÃ¡mina
 		for (int i = 0; i < 256; i++) {
 			
 			JCheckBox c = new JCheckBox();
@@ -134,17 +134,17 @@ public class BeatBox {
 			
 		}
 		
-		//Llamada al método que se encarga de lo relacionado con los Midi
+		//Llamada al mÃ©todo que se encarga de lo relacionado con los Midi
 		setUpMidi();
 		
-		//Establecemos tamaño del marco, su posición, lo hacemos flexible y lo hacemos visible
+		//Establecemos tamaÃ±o del marco, su posiciÃ³n, lo hacemos flexible y lo hacemos visible
 		miMarco.setBounds(50,50,300,300);
 		miMarco.pack();		
 		miMarco.setVisible(true);
 		
 	}
 	
-	//Creamos método que maneja todo lo relacionado con Midi
+	//Creamos mÃ©todo que maneja todo lo relacionado con Midi
 	public void setUpMidi(){
 		
 		try {
@@ -168,10 +168,10 @@ public class BeatBox {
 		
 	}
 	
-	//Método que compone las pistas
+	//MÃ©todo que compone las pistas
 	public void componerPista(){
 		
-		//Array que manejará los intrumentos a reproducir
+		//Array que manejarÃ¡ los intrumentos a reproducir
 		int[] trackList = null;
 		
 		//Borrar pista anterior y crear nueva
@@ -191,7 +191,7 @@ public class BeatBox {
 				
 				JCheckBox jc = listaCheckBox.get(j+16*i);
 				
-				//Código para saber si esa nota está seleccionado o hay silencio
+				//CÃ³digo para saber si esa nota estÃ¡ seleccionado o hay silencio
 				if (jc.isSelected()) {
 					
 					trackList[j] = notaInstrumento;
@@ -204,7 +204,7 @@ public class BeatBox {
 				
 			}
 			
-			//Construimos la pista con lo que haya seleccionado y la añadimos a la pista que estamos creando
+			//Construimos la pista con lo que haya seleccionado y la aÃ±adimos a la pista que estamos creando
 			construyePistas(trackList);			
 			pista.add(construyeEvento(176,1,127,0,16));
 			
@@ -269,6 +269,36 @@ public class BeatBox {
 			secuenciador.setTempoFactor((float)(tempoFactor*.97));
 			
 		}		
+		
+	}
+	
+	public class MySendListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent a) {
+			
+			boolean [] estadoCheckBox = new boolean[256];
+			
+			for (int i = 0; i < 256; i++) {
+				
+				JCheckBox check = (JCheckBox) listaCheckBox.get(i);
+				
+				if(check.isSelected()){
+					
+					estadoCheckBox[i] = true;
+					
+				}
+				
+			}try {
+				
+				FileOutputStream fileStream = new FileOutputStream(new File("Checkbox.ser"));
+				ObjectOutputStream os = new ObjectOutputStream(fileStream);
+				
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				
+			}
+		}
 		
 	}
 	
